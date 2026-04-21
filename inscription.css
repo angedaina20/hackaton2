@@ -1,0 +1,17 @@
+body {
+    background-color: blue; 
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+form {
+    background: gray;
+    padding: 20px;
+    border-radius: 10px;
+    color:red;
+}
