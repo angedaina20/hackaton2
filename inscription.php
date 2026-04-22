@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +7,7 @@
     <link rel="stylesheet" href="inscription.css">
 </head>
 <body>
-
+<?php include 'navbar.php';?>
     <div class="ins">
         <h2>Créer un compte</h2>
         <form action="inscription.php" method="POST">
@@ -16,11 +17,24 @@
             <button type="submit" name="register">S'inscrire</button>
         </form>
     </div>
+<?php
+include 'config.php'; // On appelle la connexion
 
-    <?php
-    if (isset($_POST['register'])) {
-        echo "<p style='color:green; text-align:center; margin-top:10px;'>Formulaire bien reçu !</p>";
+if (isset($_POST['register'])) {
+    $nom = $_POST['nom'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Sécurité !
+
+    try {
+        // On prépare l'insertion dans ta table 'utilisateurs'
+        $sql = "INSERT INTO utilisateurs (nom, email, mot_de_passe ) VALUES (?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nom, $email, $password]);
+
+        echo "<p style='color:green; text-align:center;'>Inscription réussie sur la base !</p>";
+    } catch (PDOException $e) {
+        echo "<p style='color:red;'>Erreur : " . $e->getMessage() . "</p>";
     }
-    ?>
-
+}
+?>
 </body>
