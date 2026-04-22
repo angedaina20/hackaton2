@@ -16,7 +16,7 @@ if (isset($_POST['login'])) {
     if ($user && password_verify($password, $user['mot_de_passe'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_nom'] = $user['nom'];
-        
+        $_SESSION['utilisateur_id'] = $user['id'];
         // Redirection vers l'accueil
         header("Location: index.php"); 
         exit();

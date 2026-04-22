@@ -54,7 +54,18 @@ if(isset($_GET['id'])) {
             <h3>Description</h3>
             <p><?php echo nl2br($logement['description']); ?></p>
         </div>
-
+<h3>Réserver ce logement</h3>
+<form action="reserver_action.php" method="POST">
+    <input type="hidden" name="id_logement" value="<?php echo $logement['id']; ?>">
+    
+    <label>Date de début :</label>
+    <input type="date" name="date_debut" required>
+    
+    <label>Date de fin :</label>
+    <input type="date" name="date_fin" required>
+    
+    <button type="submit">Confirmer la réservation</button>
+</form>
         <div style="margin-top: 30px;">
             <button style="padding: 15px 30px; background: #27ae60; color: white; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer;">
                 Réserver ce logement
