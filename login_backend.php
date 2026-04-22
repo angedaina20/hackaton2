@@ -1,24 +1,17 @@
 <?php
-session_start(); // On prépare le système de "badges" (sessions)
-include 'config.php'; // On se connecte à la base de données
+session_start();
+include('connexion.php');
 
 if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    // ... tes lignes pour préparer et exécuter la requête SQL ...
+    $user = $stmt->fetch();
 
-    // 1. On cherche si l'email existe dans la table
-    $sql = "SELECT * FROM utilisateurs WHERE email = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(); // On récupère les infos de l'utilisateur trouvé
-
-    // 2. On vérifie si l'utilisateur existe ET si le mot de passe est bon
-    if ($user && password_verify($password, $user['mot_de_passe'])) {
-        $_SESSION['user_id'] = $user['id'];
+    if ($user) { // On vérifie si l'utilisateur existe
         $_SESSION['user_nom'] = $user['nom'];
-        $_SESSION['utilisateur_id'] = $user['id'];
-        // Redirection vers l'accueil
-        header("Location: index.php"); 
+        $_SESSION['utilisateur_id'] = $user['id']; // La ligne qu'on a ajoutée
+
+        header("Location: index.php");
         exit();
-    }
+    } // <--- Fermeture du IF ($user)
+} // <--- Fermeture du IF (isset($_POST['login']))
 ?>
